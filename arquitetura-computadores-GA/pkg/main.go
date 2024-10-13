@@ -5,7 +5,6 @@ import (
 	"log"
 	"os"
 	"strings"
-
 	"github.com/juniorrodes/arquitetura-computadores-GA/pkg/instructions"
 )
 
@@ -75,12 +74,12 @@ func (ps *PipelineStage) Process(instruction string) {
 	//fmt.Printf("%s processing instruction: %s\n", ps.stageName, instruction)
 }
 
-// PrintState imprime o estado atual de todos os estágios do pipeline
+// imprime os estágios do pipeline
 func (ps *PipelineStage) PrintState() {
 	fmt.Printf("%s: %s\n", ps.stageName, ps.instruction)
 }
 
-// Pipeline gerencia o fluxo das instruções pelo pipeline
+// gerencia o fluxo das instruções pelo pipeline
 type Pipeline struct {
 	instructions     []instructions.MemInstruction
 	registers        *RegisterFile
@@ -115,7 +114,7 @@ func (p *Pipeline) Run() {
 		p.cycle()
 		p.printStages() // Imprime o estado de todos os estágios após cada ciclo
 	}
-	// Imprime o número total de instruções executadas ao final da execução
+	
 	fmt.Printf("Total de instruções executadas: %d\n", p.instructionCount)
 }
 
@@ -129,7 +128,7 @@ func (p *Pipeline) cycle() {
 	// Busca a instrução (IF)
 	currentInstruction := ""
 	if p.pc < len(p.instructions) {
-		currentInstruction = p.instructions[p.pc].String() // Certifique-se de que o método String() exista na estrutura MemInstruction
+		currentInstruction = p.instructions[p.pc].String() 
 	}
 	p.stages[0].Process(currentInstruction)
 
@@ -151,18 +150,17 @@ func (p *Pipeline) cycle() {
 
 // ResolveBranch processa o desvio caso a condição seja verdadeira
 func (p *Pipeline) resolveBranch(instruction string) int {
-	// Para este exemplo, apenas avançamos o PC em 1
-	// Implemente a lógica de desvio apropriada conforme necessário
-	return p.pc + 1 // Exemplo simples
+	avançamos o PC em 1
+	return p.pc + 1 
 }
 
-// printStages imprime o estado atual de todos os estágios do pipeline
+// printStages imprime o estado atual 
 func (p *Pipeline) printStages() {
 	fmt.Printf("Pipeline Stages (PC: %d):\n", p.pc)
 	for _, stage := range p.stages {
 		stage.PrintState()
 	}
-	fmt.Println() // Linha em branco para melhor legibilidade
+	fmt.Println() 
 }
 
 func main() {
